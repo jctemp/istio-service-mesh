@@ -5,7 +5,7 @@ nav:
       - Welcome: index.md
       - Sources: sources.md
   - Setup:
-      - Environment: environment
+      - Environment: environment.md
       - Prerequisites: prerequisites.md
       - Clusters: clusters.md
       - Benchmarking: benchmarks.md

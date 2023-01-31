@@ -8,6 +8,8 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
+Now, we can serve the page with `mkdocs serve` and see the local website.
+
 ## Project layout
 
 ```py

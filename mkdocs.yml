@@ -2,13 +2,13 @@ site_name: Service Mesh Comparison
 
 nav:
   - Home:
-      - Welcome: index.md
-      - Sources: sources.md
+      - Welcome: 01-welcome.md
+      - Sources: 02-sources.md
   - Setup:
-      - Environment: environment.md
-      - Prerequisites: prerequisites.md
-      - Clusters: clusters.md
-      - Benchmarking: benchmarks.md
+      - Environment: 03-environment.md
+      - Prerequisites: 04-prerequisites.md
+      - Clusters: 05-clusters.md
+      - Benchmarking: 06-benchmarks.md
 
 theme:
   name: material

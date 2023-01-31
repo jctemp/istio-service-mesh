@@ -2,7 +2,7 @@ site_name: Service Mesh Comparison
 
 nav:
   - Home:
-      - Welcome: 01-welcome.md
+      - Welcome: index.md
       - Sources: 02-sources.md
   - Setup:
       - Environment: 03-environment.md
@@ -14,6 +14,7 @@ theme:
   name: material
 
   features:
+  - navigation.footer
   - navigation.expand
   - toc.integrate
 

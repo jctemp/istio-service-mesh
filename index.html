@@ -10,7 +10,7 @@
       
       
       
-        <link rel="next" href="sources/">
+        <link rel="next" href="02-sources/">
       
       <link rel="icon" href="assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.9">
@@ -302,7 +302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="sources/" class="md-nav__link">
+      <a href="02-sources/" class="md-nav__link">
         Sources
       </a>
     </li>
@@ -353,7 +353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="environment/" class="md-nav__link">
+      <a href="03-environment/" class="md-nav__link">
         Environment
       </a>
     </li>
@@ -367,7 +367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="prerequisites/" class="md-nav__link">
+      <a href="04-prerequisites/" class="md-nav__link">
         Prerequisites
       </a>
     </li>
@@ -381,7 +381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="clusters/" class="md-nav__link">
+      <a href="05-clusters/" class="md-nav__link">
         Clusters
       </a>
     </li>
@@ -395,7 +395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="benchmarks/" class="md-nav__link">
+      <a href="06-benchmarks/" class="md-nav__link">
         Benchmarking
       </a>
     </li>
@@ -426,14 +426,14 @@
 
 
 <h1 id="welcome">Welcome</h1>
-<p>This repository gives more context regarding the setup of Istio's ambient mesh and traditional service mesh.
-It is using the <code>bookinfo</code> example to demonstate the performance difference between the two service meshes.
-Further, it is important to note that this is an academic example and that benchmarks are necessary to understand true behaviour.
-Nonetheless, the benchmark aims to show tendencies and the opportunity of the new approach.</p>
+<p>This repository gives more context regarding the setup of Istio's ambient and traditional service mesh experiment.
+It uses the <code>book info</code> example to demonstrate the performance difference between the two service meshes.
+Further, it is essential to note that this is an academic example and that real environment benchmarks are necessary to understand proper behaviour.
+Nonetheless, the benchmark aims to show the new approach's tendencies and opportunities.</p>
 <h2 id="requirements">Requirements</h2>
-<p>To perform the experiment, you will need the listed software below.
-With that, we can create a local cluster using <code>kind</code>.
-The <code>k9s</code> is just a command line interface allowing to browse the cluster.</p>
+<p>You are required to install the listed software below to run the benchmarks.
+See the section <code>Prerequisites</code> for more information.
+Feel free to skip if you have the required software installed.</p>
 <ul>
 <li><a href="https://docs.docker.com/engine/install/">Docker Version 20.10.23</a></li>
 <li><a href="https://kubernetes.io/docs/tasks/tools/">Kubernetes CLI Version 1.26.1</a></li>
@@ -441,8 +441,6 @@ The <code>k9s</code> is just a command line interface allowing to browse the clu
 <li><a href="https://kind.sigs.k8s.io/">kind Version v0.17.0</a></li>
 <li><a href="https://github.com/derailed/k9s/releases">k9s Version 0.27.0</a> (optional)</li>
 </ul>
-<p>The next section contains a quick installation guide.
-Skip that if you already have the required software.</p>
 
 
 
@@ -458,6 +456,29 @@ Skip that if you already have the required software.</p>
       </main>
       
         <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+        
+          
+          <a href="02-sources/" class="md-footer__link md-footer__link--next" aria-label="Next: Sources" rel="next">
+            <div class="md-footer__title">
+              <div class="md-ellipsis">
+                <span class="md-footer__direction">
+                  Next
+                </span>
+                Sources
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -480,7 +501,7 @@ Skip that if you already have the required software.</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "toc.integrate"], "search": "assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy", "navigation.footer", "navigation.expand", "toc.integrate"], "search": "assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="assets/javascripts/bundle.a00a7c5e.min.js"></script>

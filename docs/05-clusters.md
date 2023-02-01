@@ -24,11 +24,15 @@ DEST=istio-0.0.0-ambient
 mkdir $DEST && tar xzf $FILE --strip-components 1 -C $DEST && cd $DEST
 ```
 
-Inside, we can create a symlink and place it into the `/usr/local/bin` folder to make `istioctl` available system-wide.
+!!!tip
+    You can create a symlink to the `istioctl` executable and add it to the `/usr/local/bin` path to make it available globally.
+    Like that you are not required to type the path to the binary.
 
-```bash
-sudo ln -s $(pwd)/bin/istioctl /usr/local/bin/istioctl
-```
+    ```bash
+    sudo ln -s $(pwd)/bin/istioctl /usr/local/bin/istioctl
+    ```
+
+## Handling clusters
 
 Next, we want to be able to create different clusters.
 Therefore, make a new file called `template.yaml` and add the code below.
@@ -65,6 +69,27 @@ NAME="ambient"
 kind create cluster --config $NAME.yaml
 ```
 
+After creating a cluster, we can use the `k9s` tool to browse the various components.
+At this point, it should be empty as only the essential services are deployed to operate the cluster with `kubectl`.
+Further valuable commands are:
+
+```bash
+# list all available clusters
+kind get clusters
+
+# delete a cluster
+kind delete clusters <name>
+```
+
+The last step before deploying the application is to install an Istio profile in the cluster.
+You can list all the available profiles with `istioctl profile list`.
+It also should contain the ambient profile.
+Finally, install Istio will the following command:
+
+```bash
+istioctl install -y --set profile=ambient
+```
+
 ## Deployment of the application
 
 For the benchmarking, we will use the `book info` example because Istio well documented references.
@@ -77,7 +102,17 @@ Further, the ambient guide can be some times errorness and troubleshooting was d
 
 ## Metric observation of a cluster
 
+Ensure you have installed the Istio service mesh because otherwise this installation will fail.
 Istio provides with every release an addons folder.
-Inside that folder there are pre-made `.yaml` files which deploy `Prometheus` and `Grafana` that allow the observation of a cluster.
+Inside that folder, there are pre-made `.yaml` files which deploy `Prometheus` and `Grafana` that allow the observation of a cluster.
+Note that these presets are only helpful for small-scale clusters and should be sufficient for this test.
 
-TODO: further guidance.
+```bash
+kubectl apply -f ./samples/addons/grafana.yaml
+kubectl apply -f ./samples/addons/prometheus.yaml
+```
+
+These two add-ons aim to monitor the system's resource usage and visualise the data accordingly.
+We could optimise the add-ons; However, this should be optional for this scale.
+
+TODO (better dashboard for grafana)

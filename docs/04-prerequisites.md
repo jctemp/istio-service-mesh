@@ -66,7 +66,7 @@ newgrp docker
 ## Kubectl
 
 To work with any cluster, we must install the Kubernetes command-line tool `kubectl`.
-The easiest method is to curl the binary, as it can ensure the same version. 
+The easiest method is to curl the binary, as it can ensure the same version.
 
 ```bash
 VERSION=v1.26.1

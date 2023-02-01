@@ -124,7 +124,7 @@ Nonetheless, working solely with `kubectl` is sufficient.
 Download the binary and unpack it.
 
 ```bash
-FILE=k9s_Linux_arm64.tar.gz
+FILE=k9s_Linux_amd64.tar.gz
 curl -LO "https://github.com/derailed/k9s/releases/download/v0.27.0/$FILE"
 tar -xzf $FILE
 ```

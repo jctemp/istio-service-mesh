@@ -1,13 +1,14 @@
 # Quick guide
 
-This is a quick guide to install all the dependencies.
-We only give the instructions for Ubuntu-based systems.
-*Of course, we recommend to check the official websites.*
+This section is a quick guide to installing all the dependencies.
+The given instructions are only for Debian-based systems.
+*Although we provided the collection of all the needed commands, we do not guarantee correctness.
+Therefore, consult the official websites if you need help with problems.*
 
 ## System
 
-To make all the installations, we will need some other dependencies.
-Most can be installed via the native package manager.
+First, we can install basic packages via the native package manager `apt`.
+The tools `docker` and `kubectl` need these packages to function correctly.
 
 ```bash
 sudo apt -y update
@@ -16,13 +17,14 @@ sudo apt -y install ca-certificates curl gnupg lsb-release
 
 ## Docker
 
-The [docker documentation](https://docs.docker.com/engine/install/ubuntu/) recommends to remove any existing docker installation.
+Docker will manage the containers of the deployed cluster.
+The [docker documentation](https://docs.docker.com/engine/install/ubuntu/) recommends removing any existing docker installation to have the correct version.
 
 ```bash
 sudo apt remove docker docker-engine docker.io containerd runc
 ```
 
-The next step does get the dockers signing key and add dockers repository to the native package manager.
+The next step is to add the docker signing key to the package manager and make the native package manager aware of the docker repository.
 
 ```bash
 mkdir -p /etc/apt/keyrings
@@ -33,7 +35,8 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 ```
 
-Finally, docker explained that we have to change the installation pattern, if we do not want the latest version. Feel free adapting this section to your needs.
+Finally, the documentation explained that we must change the installation pattern if we do not want the latest version.
+So feel free to adapt this section to your needs.
 
 ```bash
 sudo apt -y update
@@ -52,7 +55,7 @@ else
 fi
 ```
 
-Depending on the system, it might be necessary to add the current user to a special group which grants access to the docker socket.
+Post-installation, depending on the system, it might be necessary to add the current user to a `docker` group which will grant access to the docker socket.
 
 ```bash
 sudo groupadd docker
@@ -62,7 +65,8 @@ newgrp docker
 
 ## Kubectl
 
-For `kubectl`, we recommend to follow the installation via `curl` because it is easier to ensure the same version.
+To work with any cluster, we must install the Kubernetes command-line tool `kubectl`.
+The easiest method is to curl the binary, as it can ensure the same version. 
 
 ```bash
 VERSION=v1.26.1
@@ -71,7 +75,7 @@ curl -LO "https://dl.k8s.io/release/$VERSION/bin/linux/amd64/kubectl"
 curl -LO "https://dl.k8s.io/$VERSION/bin/linux/amd64/kubectl.sha256"
 ```
 
-Verify the downloaded `kubectl` executable.
+Verify the downloaded executable `kubectl`.
 
 ```bash
 echo "$(cat kubectl.sha256) kubectl" | sha256sum --check
@@ -85,12 +89,12 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
 ## Kind
 
-The `kind` tool allows us to create a local cluster.
-There are other options available, like `k3d` or `minikube`.
-However, during testing we have found that `kind` worked best with the Istio preview version.
-Further, Istio used it for their demo.
+Next, we need an environment to create a cluster.
+Note that you can use cloud services instead.
+The `kind` tool (Kubernetes in Docker) allows us to create a local cluster.
+Alternatives are `k3d` or `minikube`, but during testing `kind` delivered the most reliable results.
 
-Similar to the `kubectl` executable, we will curl the binary of the `kind` tool.
+Similar to the `kubectl` executable, we will curl the `kind` binary.
 
 ```bash
 VERSION=v0.17.0
@@ -100,7 +104,7 @@ curl -Lo ./$FILE "https://github.com/kubernetes-sigs/kind/releases/download/$VER
 curl -Lo ./$FILE.sha256 "https://github.com/kubernetes-sigs/kind/releases/download/$VERSION/$FILE.sha256sum"
 ```
 
-Verify the downloaded `kind` executable.
+Verify the downloaded executable `kind`.
 
 ```bash
 echo "$(cat $FILE.sha256)" | sha256sum --check
@@ -115,7 +119,7 @@ sudo install -o root -g root -m 0755 $FILE /usr/local/bin/kind
 ## k9s
 
 As previously mentioned, this part is optional.
-The `k9s` command line interface provides comfortable tooling with a great overview of a cluster.
+The `k9s` command line interface provides comfortable tooling with an excellent cluster overview.
 Nonetheless, working solely with `kubectl` is sufficient.
 Download the binary and unpack it.
 

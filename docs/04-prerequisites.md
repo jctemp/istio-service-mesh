@@ -19,7 +19,7 @@ sudo apt -y install ca-certificates curl gnupg lsb-release
 The [docker documentation](https://docs.docker.com/engine/install/ubuntu/) recommends to remove any existing docker installation.
 
 ```bash
-apt remove docker docker-engine docker.io containerd runc
+sudo apt remove docker docker-engine docker.io containerd runc
 ```
 
 The next step does get the dockers signing key and add dockers repository to the native package manager.
@@ -36,16 +36,19 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 Finally, docker explained that we have to change the installation pattern, if we do not want the latest version. Feel free adapting this section to your needs.
 
 ```bash
+sudo apt -y update
+
 VERSION_STRING=5:20.10.23~3-0~ubuntu-jammy
 VERSION_AVAILABLE=$(apt-cache madison docker-ce | awk '{ print $3 }')
 
 if echo $VERSION_AVAILABLE | grep -q "$VERSION_STRING"; then 
-    sudo apt -y update
     sudo apt -y install \
         docker-ce=$VERSION_STRING \
         docker-ce-cli=$VERSION_STRING \
         containerd.io \
             docker-compose-plugin; 
+else
+    echo "Could not find $VERSION_STRING."
 fi
 ```
 

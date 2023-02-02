@@ -217,46 +217,18 @@
   
   
   
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-        
-      
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
-          Home
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_1">
-          <span class="md-nav__icon md-icon"></span>
-          Home
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
     <li class="md-nav__item">
       <a href=".." class="md-nav__link">
-        Welcome
+        Home
       </a>
     </li>
   
 
-            
-          
-            
-              
+    
+      
+      
+      
+
   
   
   
@@ -264,13 +236,6 @@
       <a href="../02-sources/" class="md-nav__link">
         Sources
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -290,17 +255,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
       
       
       
-        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Setup
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-        <label class="md-nav__title" for="__nav_2">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Setup
         </label>
@@ -363,9 +328,47 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Benchmarking
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Benchmarking
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    Limitations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#our-results" class="md-nav__link">
+    Our results
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -395,6 +398,26 @@
 
 
 <h1 id="benchmarks">Benchmarks</h1>
+<p>For the last test, we have provided some scripts in the <code>/src</code> folder that make changes to the cluster a bit easier.
+The first step is to add the <code>k6</code> pods to the cluster.
+Therefore, create a file <code>k6.yaml</code> in your current working directory and execute the following command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>k6.yaml
+</code></pre></div>
+<p>After the <code>k6</code> application is deployed in the cluster, we need to add a script file that allow us to make the stress test.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>kubectl<span class="w"> </span>cp<span class="w"> </span>&lt;some-namespace&gt;/&lt;some-pod&gt;:/home/k6<span class="w"> </span>/path/to/script.js
+</code></pre></div>
+<p>Finally, we can use the the other two scripts to start the last test and change the replica count for the <code>book info</code> application.</p>
+<ul>
+<li><code>stress-test</code></li>
+<li><code>replica-scaling</code></li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<p>Measuring the metrics inside the cluster can be inaccurate or not representative as high strain on the system can be caused partially through the scraping of data.
+Nonetheless, for this small example it should be sufficient to deploy a pre-configured version of <code>Prometheus</code> and scape the metrics.
+Further, the cluster have limited resources regarding the amount of load.
+Accordingly, it would be necessary to re-do the expriment in a large scale environment.</p>
+<h2 id="our-results">Our results</h2>
+<p>TODO</p>
 
 
 

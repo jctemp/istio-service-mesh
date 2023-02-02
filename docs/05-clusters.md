@@ -116,7 +116,7 @@ Finally, we can install the `Prometheus` application to the Kubernetes cluster.
 Note that the `values.yaml` must be in the working directory.
 
 ```bash
-helm install prometheus-metrics \
+helm install kube-prometheus-stack \
     prometheus-community/kube-prometheus-stack \
     --namespace monitoring \
     --version 44.3.0 \
@@ -128,7 +128,7 @@ helm install prometheus-metrics \
     Optionally, we can remove the installed observe by executing the following command.
 
     ```bash
-    helm uninstall prometheus-metrics --namespace monitoring
+    helm uninstall kube-prometheus-stack --namespace monitoring
     ``` 
 
 The `Grafana` dashboard can be exposed to the localhost with the followig command.

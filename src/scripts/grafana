@@ -2,6 +2,6 @@
 echo ===== FORWARD GRAFANA =====
 echo - reporting only errors
 
-kubectl port-forward deployment/prometheus-metrics-grafana -n monitoring 3000 > /dev/null
+kubectl port-forward deployment/kube-prometheus-stack-grafana -n monitoring 3000 > /dev/null
 
 echo ===== SESSION ENDED =====

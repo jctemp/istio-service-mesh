@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+echo ===== FORWARD GRAFANA =====
+echo - reporting only errors
+
+kubectl port-forward deployment/prometheus-metrics-grafana -n monitoring 3000 > /dev/null
+
+echo ===== SESSION ENDED =====

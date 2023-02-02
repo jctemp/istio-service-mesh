@@ -1,9 +1,8 @@
 site_name: Service Mesh Comparison
 
 nav:
-  - Home:
-      - Welcome: index.md
-      - Sources: 02-sources.md
+  - Home: index.md
+  - Sources: 02-sources.md
   - Setup:
       - Environment: 03-environment.md
       - Prerequisites: 04-prerequisites.md

@@ -15,4 +15,5 @@ Feel free to skip if you have the required software installed.
 - [Kubernetes CLI Version 1.26.1](https://kubernetes.io/docs/tasks/tools/)
 - [Go Version 1.19.5](https://go.dev/dl/)
 - [kind Version v0.17.0](https://kind.sigs.k8s.io/)
+- [helm package manager](https://helm.sh/docs/intro/install/)
 - [k9s Version 0.27.0](https://github.com/derailed/k9s/releases) (optional)

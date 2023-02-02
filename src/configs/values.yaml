@@ -1,0 +1,12 @@
+alertmanager:
+  enabled: false
+kubeStateMetrics:
+  enabled: false
+nodeExporter:
+  enabled: true 
+prometheus:
+  prometheusSpec:
+    retention: 60d
+grafana:
+  imageRenderer: enabled
+hostNetwork: true

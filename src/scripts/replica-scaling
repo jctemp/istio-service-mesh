@@ -1,0 +1,7 @@
+#!/bin/bash
+
+read -p "Replica? " replica
+
+kubectl scale --replicas ${replica} \
+    deployment details-v1 productpage-v1 \
+    ratings-v1 reviews-v1 reviews-v2 reviews-v3

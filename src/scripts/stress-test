@@ -1,0 +1,11 @@
+#!/bin/bash
+
+read -p "Virtual Users? " virtualuser
+read -p "Duration? " duration
+
+from=$(date +"%Y-%m-%d %T")
+kubectl exec deploy/load -- k6 run --vus ${virtualuser} --duration ${duration}s script.js
+to=$(date +"%Y-%m-%d %T")
+
+echo "from: ${from}"
+echo "to: ${to}"

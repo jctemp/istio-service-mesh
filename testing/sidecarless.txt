@@ -1,0 +1,88 @@
+Sidecarless 10
+
+from: 2023-02-03 10:38:30
+to: 2023-02-03 10:58:30
+
+     data_received..................: 2.0 GB  6.6 MB/s
+     data_sent......................: 89 MB   294 kB/s
+     http_req_blocked...............: avg=3.98ms   min=67.19µs med=249.82µs max=15.47s   p(90)=3ms      p(95)=5.08ms  
+     http_req_connecting............: avg=3.93ms   min=50.97µs med=218.58µs max=15.47s   p(90)=2.91ms   p(95)=4.94ms  
+     http_req_duration..............: avg=23.67ms  min=1.11ms  med=22.12ms  max=627.36ms p(90)=37.71ms  p(95)=43.5ms  
+       { expected_response:true }...: avg=23.67ms  min=1.11ms  med=22.12ms  max=627.36ms p(90)=37.71ms  p(95)=43.5ms  
+     http_req_failed................: 0.00%   ✓ 45          ✗ 1083401
+     http_req_receiving.............: avg=997.59µs min=0s      med=78.37µs  max=72.55ms  p(90)=3.12ms   p(95)=5.77ms  
+     http_req_sending...............: avg=117.37µs min=5.5µs   med=17.59µs  max=40.93ms  p(90)=173.57µs p(95)=371.03µs
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s       max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=22.55ms  min=1.01ms  med=21.08ms  max=627.19ms p(90)=36.05ms  p(95)=41.53ms 
+     http_reqs......................: 1083446 3590.503127/s
+     iteration_duration.............: avg=27.69ms  min=1.26ms  med=23.17ms  max=15.49s   p(90)=39.84ms  p(95)=46.37ms 
+     iterations.....................: 1083446 3590.503127/s
+     vus............................: 2       min=2         max=100  
+     vus_max........................: 100     min=100       max=100 
+
+Observations:
+- HTTP request failure exists because packet dropped
+- ztunnel had performance hit regarding CPU usage as there is a drop at 10:44
+  this correlates to the later increase of packets dropped due to high load
+- MEM usages is minimal compared to sidecars
+- MEM decrease at 10:43 where CPU decrease followed by the increase of packet loss
+- packet loss can be a result of a problem that the ztunnels are not able to forward
+  the packets to the application due to high load (might be a bottleneck of the current version)
+  
+NOTE: changing the replica amount causes the ztunnel to increase their memory usage 
+      significantly (in total 363MB more than baseline of 707MB) -> about 10m waiting until back to ``normal''
+      
+Sidecarless 5
+
+from: 2023-02-03 11:13:00
+to: 2023-02-03 11:33:00
+
+
+     data_received..................: 1.5 GB 5.0 MB/s
+     data_sent......................: 67 MB  222 kB/s
+     http_req_blocked...............: avg=2.96ms   min=0s     med=1.35ms   max=3.05s    p(90)=5.59ms   p(95)=10.13ms 
+     http_req_connecting............: avg=2.91ms   min=0s     med=1.32ms   max=3.05s    p(90)=5.44ms   p(95)=9.95ms  
+     http_req_duration..............: avg=27.26ms  min=0s     med=25ms     max=189.19ms p(90)=50.17ms  p(95)=59.29ms 
+       { expected_response:true }...: avg=29.93ms  min=1.08ms med=26.8ms   max=189.19ms p(90)=51.43ms  p(95)=60.51ms 
+     http_req_failed................: 8.93%  ✓ 79689       ✗ 812511
+     http_req_receiving.............: avg=1.52ms   min=0s     med=133.37µs max=110.93ms p(90)=4.56ms   p(95)=7.28ms  
+     http_req_sending...............: avg=150.41µs min=0s     med=19µs     max=132.93ms p(90)=143.62µs p(95)=383.08µs
+     http_req_tls_handshaking.......: avg=0s       min=0s     med=0s       max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=25.58ms  min=0s     med=23.22ms  max=188ms    p(90)=47.79ms  p(95)=56.73ms 
+     http_reqs......................: 892200 2970.402957/s
+     iteration_duration.............: avg=33.61ms  min=1.23ms med=29.53ms  max=3.09s    p(90)=57.52ms  p(95)=68.45ms 
+     iterations.....................: 892200 2970.402957/s
+     vus............................: 100    min=100       max=100 
+     vus_max........................: 100    min=100       max=100
+     
+Observation:
+- as with the previous the ztunnels have packet loss causing this time even a 8.93% failure rate
+  It can be correlated to the dip in the CPU usage of a ztunnel, meaning traffic cannot handle and are discarded
+- MEM usage is again, exceptionally good, however this time, MEM usage has not correlation to MEM usage
+- in generell, the performance seems inconsistent regarding the optimal CPU usage
+
+Sidecarless 1
+
+from: 2023-02-03 11:44:00
+to: 2023-02-03 12:04:00
+
+     data_received..................: 347 MB 1.2 MB/s
+     data_sent......................: 16 MB  52 kB/s
+     http_req_blocked...............: avg=1.18ms   min=0s     med=0s      max=135.64ms p(90)=831.74µs p(95)=4.78ms  
+     http_req_connecting............: avg=1.16ms   min=0s     med=0s      max=135.58ms p(90)=808.29µs p(95)=4.7ms   
+     http_req_duration..............: avg=19.68ms  min=0s     med=0s      max=304.42ms p(90)=62ms     p(95)=66.03ms 
+       { expected_response:true }...: avg=66.69ms  min=1.27ms med=60.73ms max=304.42ms p(90)=88.36ms  p(95)=123.24ms
+     http_req_failed................: 70.48% ✓ 450881      ✗ 188841
+     http_req_receiving.............: avg=243.21µs min=0s     med=0s      max=79.41ms  p(90)=727.89µs p(95)=1.07ms  
+     http_req_sending...............: avg=38.67µs  min=0s     med=0s      max=63.15ms  p(90)=16.36µs  p(95)=20.93µs 
+     http_req_tls_handshaking.......: avg=0s       min=0s     med=0s      max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=19.4ms   min=0s     med=0s      max=304.04ms p(90)=61.22ms  p(95)=65.17ms 
+     http_reqs......................: 639722 2132.286992/s
+     iteration_duration.............: avg=46.86ms  min=3.97ms med=42.61ms max=339.7ms  p(90)=82.4ms   p(95)=109.62ms
+     iterations.....................: 639722 2132.286992/s
+     vus............................: 100    min=100       max=100 
+     vus_max........................: 100    min=100       max=100 
+
+- double virtualisation
+
+

@@ -11,7 +11,7 @@ kubectl apply -f k6.yaml
 After the `k6` application is deployed in the cluster, we need to add a script file that allow us to make the stress test.
 
 ```bash
-kubectl cp <some-namespace>/<some-pod>:/home/k6/script.js /path/to/script.js
+kubectl cp /path/to/script.js <some-namespace>/<some-pod>:/home/k6/
 ```
 
 Finally, we can use the the other two scripts to start the last test and change the replica count for the `book info` application.

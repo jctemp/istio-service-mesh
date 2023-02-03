@@ -8,5 +8,6 @@ prometheus:
   prometheusSpec:
     retention: 60d
 grafana:
-  imageRenderer: enabled
+  imageRenderer:
+    enabled: true
 hostNetwork: true

@@ -1,0 +1,96 @@
+Sidecar 10
+
+from: 2023-02-03 00:20:00
+to: 2023-02-03 00:40:00
+
+     data_received..................: 2.4 GB  7.9 MB/s
+     data_sent......................: 106 MB  352 kB/s
+     http_req_blocked...............: avg=3.01µs   min=450ns  med=1.49µs  max=29.12ms  p(90)=2.24µs  p(95)=2.71µs 
+     http_req_connecting............: avg=341ns    min=0s     med=0s      max=28.04ms  p(90)=0s      p(95)=0s     
+     http_req_duration..............: avg=23.25ms  min=1.27ms med=21.47ms max=192.6ms  p(90)=37.71ms p(95)=44.11ms
+       { expected_response:true }...: avg=23.25ms  min=1.27ms med=21.47ms max=192.6ms  p(90)=37.71ms p(95)=44.11ms
+     http_req_failed................: 0.00%   ✓ 0          ✗ 1286690
+     http_req_receiving.............: avg=522.85µs min=9.41µs med=25.88µs max=70.6ms   p(90)=1.58ms  p(95)=3.16ms 
+     http_req_sending...............: avg=11.36µs  min=3.05µs med=7.55µs  max=28.97ms  p(90)=10µs    p(95)=12.37µs
+     http_req_tls_handshaking.......: avg=0s       min=0s     med=0s      max=0s       p(90)=0s      p(95)=0s     
+     http_req_waiting...............: avg=22.71ms  min=1.18ms med=20.93ms max=192.57ms p(90)=37.03ms p(95)=43.4ms 
+     http_reqs......................: 1286690 4288.71006/s
+     iteration_duration.............: avg=23.3ms   min=1.31ms med=21.53ms max=192.64ms p(90)=37.77ms p(95)=44.17ms
+     iterations.....................: 1286690 4288.71006/s
+     vus............................: 100     min=100      max=100  
+     vus_max........................: 100     min=100      max=100
+     
+Observationns:
+- from 00:20 until 00:25 we had the stress test
+- CPU usage normalised at 00:28
+- MEM usage was already high (7.74 GB at peak)
+- not all pods had a MEM consumption of 130MB
+- interestingly, at 00:27 the services with less MEM consumption increased, 
+  whilst the others slightly decreased about 3MB
+- an increase of MEM consumption can be correlated to a preparation for another high load
+- CPU Usage remained at minimum at all time after high load
+     
+Sidecar 05
+
+from: 2023-02-03 00:45:00
+to: 2023-02-03 01:05:00
+
+     data_received..................: 1.8 GB 6.1 MB/s
+     data_sent......................: 80 MB  268 kB/s
+     http_req_blocked...............: avg=3.36µs   min=441ns  med=1.3µs   max=43.66ms  p(90)=1.9µs   p(95)=2.29µs 
+     http_req_connecting............: avg=663ns    min=0s     med=0s      max=40.96ms  p(90)=0s      p(95)=0s     
+     http_req_duration..............: avg=30.54ms  min=1.66ms med=25.83ms max=186.06ms p(90)=50.3ms  p(95)=61.33ms
+       { expected_response:true }...: avg=30.54ms  min=1.66ms med=25.83ms max=186.06ms p(90)=50.3ms  p(95)=61.33ms
+     http_req_failed................: 0.00%  ✓ 0           ✗ 980816
+     http_req_receiving.............: avg=501.86µs min=9.26µs med=27.48µs max=77.1ms   p(90)=1.36ms  p(95)=2.14ms 
+     http_req_sending...............: avg=8.21µs   min=3.11µs med=6.61µs  max=40.62ms  p(90)=8.62µs  p(95)=9.94µs 
+     http_req_tls_handshaking.......: avg=0s       min=0s     med=0s      max=0s       p(90)=0s      p(95)=0s     
+     http_req_waiting...............: avg=30.03ms  min=1.3ms  med=25.27ms max=186.04ms p(90)=49.82ms p(95)=60.88ms
+     http_reqs......................: 980816 3269.121142/s
+     iteration_duration.............: avg=30.58ms  min=1.69ms med=25.87ms max=186.09ms p(90)=50.35ms p(95)=61.39ms
+     iterations.....................: 980816 3269.121142/s
+     vus............................: 100    min=100       max=100 
+     vus_max........................: 100    min=100       max=100
+
+Observations:
+- from 00:48 until 00:53 was the stress test
+- CPU usage normalised at 00:56
+- MEM usage had a 3.77 GB peak
+- during the stress test the CPU usage was not constant, further usage was higher than 10 replica count
+  that might be an indicator for a performance hit
+- as with the previous test, the MEM usage slightly rises to the end, but not as prominant
+- during stress testing some proxies needed to increase their MEM usage
+- the throughput (http_reqs) decreases as the proxies have more load to handle
+
+Sidecar 01
+
+from: 2023-02-03 01:16:30
+to: 2023-02-03 01:37:00
+
+     data_received..................: 475 MB 1.6 MB/s
+     data_sent......................: 26 MB  87 kB/s
+     http_req_blocked...............: avg=6.95µs   min=491ns  med=1.07µs  max=42.05ms  p(90)=1.6µs    p(95)=1.83µs  
+     http_req_connecting............: avg=2.06µs   min=0s     med=0s      max=41.33ms  p(90)=0s       p(95)=0s      
+     http_req_duration..............: avg=94.7ms   min=2.52ms med=64.91ms max=440.19ms p(90)=184.22ms p(95)=206.04ms
+       { expected_response:true }...: avg=70.39ms  min=2.52ms med=63.87ms max=409.29ms p(90)=78.38ms  p(95)=126.71ms
+     http_req_failed................: 23.43% ✓ 74201       ✗ 242458
+     http_req_receiving.............: avg=202.76µs min=9.21µs med=25.84µs max=34.18ms  p(90)=649.32µs p(95)=859.07µs
+     http_req_sending...............: avg=6.15µs   min=3.21µs med=5.46µs  max=41.13ms  p(90)=7.68µs   p(95)=8.44µs  
+     http_req_tls_handshaking.......: avg=0s       min=0s     med=0s      max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=94.49ms  min=2.5ms  med=64.58ms max=440.17ms p(90)=184.19ms p(95)=206.01ms
+     http_reqs......................: 316659 1055.181335/s
+     iteration_duration.............: avg=94.74ms  min=2.55ms med=64.95ms max=440.23ms p(90)=184.25ms p(95)=206.07ms
+     iterations.....................: 316659 1055.181335/s
+     vus............................: 100    min=100       max=100 
+     vus_max........................: 100    min=100       max=100 
+
+Observations:
+- from 01:17 until 01:22 was the stress test
+- CPU usage normalised at 01:24
+- during the stress test the CPU usage was better but still not constant
+- this time some http_reqs_failed
+- only the `poductpage` poxy was increasing MEM consumption, even more than previous
+- after the stress test, as with the previous runs, the MEM consumption reduced slight but was
+  nonetheless 15MB more than previous
+
+

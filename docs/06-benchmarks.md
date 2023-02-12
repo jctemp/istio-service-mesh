@@ -28,7 +28,4 @@ Accordingly, it would be necessary to re-do the expriment in a large scale envir
 
 ## Our results
 
-```txt
-Virtual users: 20
-Duration: 300s
-```
+You can find the measurements in the `/testing` folder.
